@@ -169,6 +169,25 @@ RULE_PROCESS_ITEM_01:
 
   **Action:** Generate modification. Instruct Cursor to apply it. Log action.
 
+**# --- Version Control Rules ---**
+
+RULE_VCS_CONTROL_01:
+  **Constraint:** Do not execute `git commit` commands unless explicitly instructed by the user for specific changes.
+  **Constraint:** Never execute `git push` commands.
+
+RULE_VCS_COMMIT_01:
+  **Trigger:** User explicitly requests a `git commit` action.
+  **Action:**
+    1. Determine the appropriate Conventional Commit prefix (e.g., feat, fix, chore, docs, style, refactor, test).
+    2. Formulate the commit message following the Conventional Commits specification (`<type>[optional scope]: <description>`).
+    3. Execute `git commit -m "conventional_commit_message"`.
+    4. Log the commit action and message.
+
+**# --- Logging Rules ---**
+
+RULE_LOG_TIMESTAMP_01:
+  **Constraint:** All entries added to the `## Log` section MUST use the current actual time in the SAST timezone, formatted as `[YYYY-MM-DD HH:MM:SS +0200]`.
+
 **# --- Error Handling & Recovery Rules ---**
 
 RULE_ERR_HANDLE_LINT_01:
